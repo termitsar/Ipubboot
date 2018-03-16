@@ -1,0 +1,44 @@
+<!DOCTYPE html> <!-- SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd"> -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:fragment="head">
+<title>Вход</title>
+
+<link th:href="@{/pages/css/bootstrap.css}" rel="stylesheet" media="screen" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf8"\> 
+<script th:src="@{/pages/js/jquery-1.10.2.min.js}"></script>
+
+</head>
+
+
+  <body>
+    <div class="container" style="width: 300px;margin-top: 10%">
+		<form th:action="@{/appLogin}" method="post" name="f">
+			<h2 class="form-signin-heading">Вход на сайт:</h2>
+			<input type="text" class="form-control" name="j_username" placeholder="Логин" required autofocus> 
+			<input type="password" class="form-control" name="j_password"	placeholder="Пароль">
+
+
+			<div th:if="${loginError}"class="form-group has-error has-feedback">
+				<span class="help-block"><p>Логин или пароль не верен!</p></span>
+			</div>
+
+			<div class="checkbox">
+				<label><input type="checkbox" id="rememberme"	name="remember-me"> Запомнить пароль</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+			
+			<div class="form-group " type="color" value="#563d7c" style="margin: 10px 0px 0px 0px;">
+			
+				<a href="usernew">Новый пользователь?</a>
+			</div>
+		</form>
+
+	</div>
+
+  </body>
+</html>
+
+

@@ -1,0 +1,122 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout=”http://www.ultraq.net.nz/thymeleaf/layout”
+layout:decorate="~{Admin/Templateadmin}">
+	
+
+
+<div layout:fragment="content">
+<meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+
+<h3 style="text-align: center; margin-bottom: 30px;">Загрузка и выгрузка справочников </h3>
+
+<div class="form-container">
+	<div class="row">
+		<div class="col-md-3">
+			<p>Скачать в формате .XLSX</p>
+			<p><a th:href="@{/downloadExcelGroups}">Полный список групп</a></p>
+			<p><a th:href="@{/downloadExcelGoods}">Полный список товаров</a></p>
+		</div>
+		<div class="col-md-3">
+			<p>Скачать в формате .CSV</p>
+			<p><a th:href="@{/downloadCSVGroups}">Полный список групп</a></p>
+			<p><a th:href="@{/downloadCSVGoods}">Полный список товаров</a></p>
+		</div>
+		<div class="col-md-3">
+			<p>Скачать в формате .XML</p>
+			<p><a th:href="@{/downloadXMLGroups}">Полный список групп</a></p>
+			<p><a th:href="@{/downloadXMLGoods}">Полный список товаров</a></p>
+		</div>
+		<div class="col-md-3">
+			<p>Скачать в формате .PDF</p>
+			<p><a th:href="@{/downloadPDFGroups}">Полный список групп</a></p>
+			<p><a th:href="@{/downloadPDFGoods}">Полный список товаров</a></p>
+		</div>
+	</div>	
+</div>
+
+	<div class="form-container">
+		<form id="groups" action="#" th:action="@{/GroupsUpload}" th:object="${fileGroups}"  enctype="multipart/form-data" method="post" class="form-horizontal">
+			<h4>Загрузить группы товаров </h4>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<div class="col-md-10">
+								<div  style="margin-bottom: 10px;">
+									<label>Выберите тип файла </label>
+									<SELECT name="TypeFileGroup" id="TypeFileGroup" onChange="ChangeTypeFile('group');" class="form-control selcls" style="width: 150px;" >
+										<OPTION  SELECTED VALUE="0">xslx</OPTION>
+										<OPTION  VALUE="1">csv</OPTION>
+										<OPTION VALUE="2">xml</OPTION>
+									</SELECT>
+								</div>
+							<div class="row">
+								<div class="col-md-10"><input type="file" accept=".xlsx"  th:field="*{file}" class="form-control input-sm" id="id_filegroup"/></div>
+								<div><input type="submit" value="Загрузить группы" form="groups" class="btn btn-primary btn-sm"></div>
+							</div>
+						<div class="has-error">
+							<label style="color:red"  th:errors="*{file}" class="help-inline"></label>
+						</div>
+						<p th:text="*{conclusion}" style="color: green; margin-top: 10px;">1</p>
+					</div>
+				</div>
+			</div>
+		</form>
+		
+		<form id="goods" action="#" th:action="@{/GoodsUpload}" th:object="${fileGoods}"  enctype="multipart/form-data" method="post" class="form-horizontal">
+			<h4>Загрузить группы товаров </h4>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<div class="col-md-10">
+								<div  style="margin-bottom: 10px;">
+									<label>Выберите тип файла </label>
+									<SELECT name="TypeFileGoods" id="TypeFileGoods" onChange="ChangeTypeFile('goods');" class="form-control selcls" style="width: 150px;" >
+										<OPTION  SELECTED VALUE="0">xslx</OPTION>
+										<OPTION  VALUE="1">csv</OPTION>
+										<OPTION VALUE="2">xml</OPTION>
+									</SELECT>
+								</div>
+							<div class="row">
+								<div class="col-md-10"><input type="file" accept=".xlsx"  th:field="*{file}" class="form-control input-sm" id="id_filegoods"/></div>
+								<div><input type="submit" value="Загрузить товар" form="goods" class="btn btn-primary btn-sm" ></div>
+							</div>
+						<div class="has-error">
+							<label style="color:red"  th:errors="*{file}" class="help-inline"></label>
+						</div>
+						<p th:text="*{conclusion}" style="color: green; margin-top: 10px;">1</p>
+					</div>
+				</div>
+			</div>
+		</form>		
+		
+	<script type="text/javascript">
+        ChangeTypeFile('group');
+        ChangeTypeFile('goods');
+		function ChangeTypeFile(type) {
+			
+			if (type=='group')
+			{
+				var id = $("#TypeFileGroup option:selected").val();
+				var groupfile = document.getElementById("id_filegroup");
+				if (id==0)	groupfile.accept=".xlsx";
+				if (id==1)	groupfile.accept=".csv";
+				if (id==2)	groupfile.accept=".xml";
+			}	
+			if (type=='goods')
+			{
+				var id = $("#TypeFileGoods option:selected").val();
+				var goodfile = document.getElementById("id_filegoods");
+				if (id==0)	goodfile.accept=".xlsx";
+				if (id==1)	goodfile.accept=".csv";
+				if (id==2)	goodfile.accept=".xml";
+			}	
+		}
+	</script> 
+	</div>
+
+    
+
+</div>
+
+
+</html>

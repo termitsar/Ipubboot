@@ -1,0 +1,67 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout=”http://www.ultraq.net.nz/thymeleaf/layout”
+	layout:decorate="~{Goods_template}">
+
+
+<div layout:fragment="content">
+	<link
+		href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css"
+		rel="stylesheet">
+	<script
+		src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+	
+		
+	<h3>
+		<span th:text="${product.name}"></span>
+	</h3>
+	<div class="container-fluid">
+		<div class="row">
+		
+			<div class="col-md-4">
+				<!-- Fotorama -->
+				<div class="fotorama" data-nav="thumbs" data-width="400" data-ratio="700/467" data-max-width="100%">
+					 <img th:each="pic : ${product.pictures}"	th:src="@{'/resources'+${pic.url}}" />
+				</div>
+			</div>
+			
+			<div class="col-md-6" style="backgroung-color: ivory">
+			  <div>
+			        <span style ="font-size: 16px; color:blue;" th:text="'Цена '+${product.price}+' руб.'"></span>
+			  		<span>Выберите количество товара</span>
+			  		<button th:onclick="'javascript:plusQuantity(' + ${product.id} + ',0)'"> - </button>
+			  				<span th:attr="id='quantity'+${product.id}">0</span>
+			  		<button th:onclick="'javascript:plusQuantity(' + ${product.id} + ',1)'"> + </button>
+			  		<button th:onclick="'javascript:addToBasket(' + ${product.id} + ')'">Купить</button>
+			  </div>
+			  
+				<h3 style="margin-bottom: 10px" >Описание:</h3>
+				<div style="background-color: ivory">
+					<span th:text="${product.description}"></span>
+				</div>
+			</div>
+			
+			<div class="col-md-2" style="backgroung-color: ivory"></div>
+		</div>
+	</div>
+
+	
+
+
+</div>
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout=”http://www.ultraq.net.nz/thymeleaf/layout”
+	layout:decorate="~{Goods_template}">
+
+<div layout:fragment="content">
+<meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+
+	<table class="table">
+		<tr th:each="good : ${goods}" >
+			<td style="width:35%;"><img style="width:80%;" th:src="@{'/resources'+${good.primPicture.url}}" th:onclick="'javascript:trclick('+${good.id}+');'"/></td> 
+			<td style="width:25%;position: relative;">
+			        <div style=" text-align:left">   
+			        	<span th:text="${good.name}" 	 th:onclick="'javascript:trclick('+${good.id}+');'">название товара</span>
+			        
+				        <div style="position: absolute;bottom:10px; text-align:left ">
+				                <div>
+				        			<span style ="font-size: 16px; color:blue;" th:text="'Цена '+${good.price}+' руб.'"></span>
+				        		</div>
+						  		<button th:onclick="'javascript:plusQuantity(' + ${good.id} + ',0)'"> - </button>
+						  				<span th:attr="id='quantity'+${good.id}">0</span>
+						  		<button th:onclick="'javascript:plusQuantity(' + ${good.id} + ',1)'"> + </button>
+						  		<button th:onclick="'javascript:addToBasket(' + ${good.id} + ')'">Купить</button>
+				  		</div>
+			  		</div>
+			
+			</td>
+			<td style="width:40%;" th:text="${good.description}" th:onclick="'javascript:trclick('+${good.id}+');'" ></td>
+			<input type="hidden" th:value="${good.id}"  />
+			
+		</tr>
+	</table>
+	
+	<script type="text/javascript">
+		function trclick(id) {
+			//alert('tr clicked'+id);
+			window.location.href='../product/'+id;
+		}
+	</script>
+</div>
+
+
+</html>

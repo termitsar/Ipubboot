@@ -1,0 +1,60 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{Admin/Templateadmin}"
+	>
+
+<div layout:fragment="content">
+<meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+   
+   <div style=" margin-bottom: 30px">
+		   	<a href="usernew" class="btn btn-success" style="width: 30%">Новый пользователь</a>
+   </div>
+   
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Логин</th>
+				<th>ФИО</th>
+				<th>E-mail</th>
+				<th>Телефон</th>
+				<th>Дата регистрации</th>
+				<th>Действия</th>
+			</tr>
+		</thead>
+
+		<tr th:each="user : ${userlist}" >
+
+			<td ><span th:text="${user.id}"></span></td>
+			<td ><span th:text="${user.username}"></span></td>
+			<td ><span th:text="${user.fam}+' '+${user.im}+' '+${user.ot}"></span></td>
+			<td ><span th:text="${user.email}"></span></td>
+			<td ><span th:text="${user.phone}"></span></td>
+			<td ><span th:text="${user.cr_date}"></span></td>
+			<td >
+				<button type="button" th:onclick="'javascript:openuser('+${user.id}+');'" class="btn-success" >Открыть</button>
+				<button type="button" th:onclick="'javascript:deleteuser('+${user.id}+');'"  class="btn-danger" >Удалить</button>
+			</td>
+		
+		</tr>
+	</table>
+	
+	
+	<script type="text/javascript">
+		function openuser(id) {
+			//alert('open '+id);
+			window.location.href='userform/'+id;
+		}
+		function deleteuser(id) {
+			//alert('delete '+id);
+			window.location.href='userdelete/'+id;
+		}
+
+	</script>
+	
+</div>
+
+
+</html>

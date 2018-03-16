@@ -1,0 +1,190 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	layout:decorate="~{Admin/Templateadmin}">
+
+<div layout:fragment="content">
+<meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+   
+		<form id="order" action="#" th:object="${user}" th:action="@{/usersave}" method="post" class="form-horizontal">
+		<fieldset>
+		
+		<div style="margin-left: 30%; margin-bottom: 30px">
+			<label th:text="'Дата создания учетной записи - '+*{cr_date}"></label>
+		</div>
+		    
+		<div style="margin-left: 40%; margin-bottom: 30px">
+		   	<button button="submit" class="btn btn-success" style="width: 30%">Сохранить</button>
+		</div>
+		
+		<div style = "margin-left: 10%">
+				<input type="hidden" th:field="*{id}"  />
+	
+		    	<div class="row">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label required-field ">Логин</label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="username" th:field="*{username}" class="form-control requiredfield" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="help-inline"></label>
+							</div>
+					</div>	
+				</div>		
+		    	<div class="row">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label required-field ">Пароль </label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="newpassword" th:field="*{newpassword}" class="form-control requiredfield" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('newpassword')}" th:errors="*{newpassword}" class="help-inline"></label>
+							</div>
+					</div>	
+				</div>		
+				<div class="row">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label required-field ">Пароль еще раз </label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="newpasswordagain" th:field="*{newpasswordagain}" class="form-control requiredfield" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('newpasswordagain')}" th:errors="*{newpasswordagain}" class="help-inline"></label>
+							</div>
+					</div>		
+		    	</div>
+		    
+		    	
+				<div class="row">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label required-field ">Электронная почта </label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="email" th:field="*{email}" class="form-control requiredfield" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="help-inline"></label>
+							</div>
+					</div>		
+			    </div>
+
+				<div class="row" style="margin-top: 30px">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label ">Фамилия </label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="fam" th:field="*{fam}" class="form-control" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('fam')}" th:errors="*{fam}" class="help-inline"></label>
+							</div>
+					</div>		
+		    	</div>
+		
+				<div class="row">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label ">Имя </label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="im" th:field="*{im}" class="form-control" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('im')}" th:errors="*{im}" class="help-inline"></label>
+							</div>
+					</div>		
+			    </div>
+	
+				<div class="row">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label ">Отчество </label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="ot" th:field="*{ot}" class="form-control" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('ot')}" th:errors="*{ot}" class="help-inline"></label>
+							</div>
+					</div>		
+			    </div>			
+				    
+			    <div class="row">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label ">Телефон </label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="phone" th:field="*{phone}" class="form-control" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="help-inline"></label>
+							</div>
+					</div>		
+			    </div>						
+					
+				<div class="row">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label ">Улица </label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="street" th:field="*{street}" class="form-control" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('street')}" th:errors="*{street}" class="help-inline"></label>
+							</div>
+					</div>		
+			    </div>			
+			    
+			    <div class="row">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label ">Город </label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="sity" th:field="*{sity}" class="form-control" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('sity')}" th:errors="*{sity}" class="help-inline"></label>
+							</div>
+					</div>		
+			    </div>			
+			    
+			    <div class="row">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label ">Регион </label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="region" th:field="*{region}" class="form-control" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('region')}" th:errors="*{region}" class="help-inline"></label>
+							</div>
+					</div>		
+			    </div>				
+	
+				<div class="row">
+			        <div class="form-group">
+						   	<label class="col-xs-4 control-label ">Индекс </label>
+							<div class="col-md-8 ">
+							  	<input style="width: 300px;" type="text" id="indexx" th:field="*{indexx}" class="form-control" />
+							  	<label style="color:red" th:if="${#fields.hasErrors('indexx')}" th:errors="*{indexx}" class="help-inline"></label>
+							</div>
+					</div>		
+			    </div>			
+
+                <!-- Таблица прав пользователя -->
+ 				<div sec:authorize="hasAuthority('ADMIN')"  >  
+					<table class="table table-striped" style="width: 30%; margin: 0 auto; margin-top: 30px">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Роль</th>
+								<th>Состояние</th>
+							</tr>
+						</thead>
+	
+						<tr th:each="role,row : *{role_list_full}">
+							<input type="hidden" th:field="*{role_list_full[__${row.index}__].id}"  />
+							<input type="hidden" th:field="*{role_list_full[__${row.index}__].name}"  />
+							<input type="hidden" th:field="*{role_list_full[__${row.index}__].rolename}"  />
+							<td><span th:text="${role.id}"></span></td>
+							<td><span th:text="${role.name}"></span></td>
+	                        <td><input type="checkbox" th:field="*{role_list_full[__${row.index}__].yes}" /></td>
+	
+						</tr>
+					</table>
+  				</div>  
+	
+				
+		</div>
+	
+		</fieldset>	
+
+	</form>
+	
+	
+	<script type="text/javascript">
+		function openuser(id) {
+			alert('open '+id);
+			//window.location.href='../adminproduct/'+id;
+		}
+		function deleteuser(id) {
+			alert('delete '+id);
+			//window.location.href='../adminproduct/'+id;
+		}
+
+	</script>
+	
+</div>
+
+
+</html>

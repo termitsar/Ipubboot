@@ -1,0 +1,310 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{Order_template}">
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- This <head> section is only used for static prototyping purposes. At runtime, -->
+<!-- Tiles will only use the body fragment defined with tiles:fragment="content",  -->
+<!-- as specified at the corresponding views.xml file.                             -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<title>Контактная информация</title>
+
+
+
+
+<div layout:fragment="content">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+
+	<body>
+		<form id="order" action="#" th:object="${order}"
+			th:action="@{/order/SaveOrder}" method="post" class="form-horizontal">
+
+
+			<fieldset>
+
+				<div style="margin-left: 0%">
+					<input type="hidden" th:field="*{id}"  />
+				    <input type="hidden" th:field="*{deliver_price}"  />
+				    
+					<div style="margin-left: 30%; margin-bottom: 30px">
+							<label th:text="'Дата создания заказа - '+*{cr_date}"></label>
+					</div>
+				
+					<div style="margin-left: 30%; margin-bottom: 30px">
+					   	<a href="/order/list" class="btn btn-info" role="button">Выйти без изменения</a>
+					   	<button button="submit" class="btn btn-success" style="width: 30%">Сохранить</button>
+					</div>
+		
+					<div class="form-group blu-margin">
+   						 <select class="col-md-offset-3 form-control" style="width:40%;" th:field="*{state_order.id}"  id="dropOperator">
+					     	<option th:each="state : *{liststate}" th:value="${state.id}" th:text="${state.name}"></option>
+					     </select>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<label class="col-xs-4 control-label required-field ">Фамилия
+							</label>
+							<div class="col-md-8 ">
+								<input style="width: 300px;" type="text" id="fam"
+									th:field="*{fam}" class="form-control requiredfield" /> <label
+									style="color: red" th:if="${#fields.hasErrors('fam')}"
+									th:errors="*{fam}" class="help-inline"></label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<label class="col-xs-4 control-label required-field">Имя
+							</label>
+							<div class="col-md-8 ">
+								<input style="width: 300px;" type="text" id="im"
+									th:field="*{im}" class="form-control requiredfield" /> <label
+									style="color: red" th:if="${#fields.hasErrors('im')}"
+									th:errors="*{im}" class="help-inline"></label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<label class="col-xs-4 control-label required-field">Отчество
+							</label>
+							<div class="col-md-8 ">
+								<input style="width: 300px;" type="text" id="ot"
+									th:field="*{ot}" class="form-control requiredfield" /> <label
+									style="color: red" th:if="${#fields.hasErrors('ot')}"
+									th:errors="*{ot}" class="help-inline"></label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<label class="col-xs-4 control-label required-field">Электронная
+								почта</label>
+							<div class="col-md-8 ">
+								<input style="width: 300px;" type="email" id="email"
+									th:field="*{email}" class="form-control" /> <label
+									style="color: red" th:if="${#fields.hasErrors('email')}"
+									th:errors="*{email}" class="help-inline"></label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<label class="col-xs-4 control-label required-field">Телефон</label>
+							<div class="col-md-8 ">
+								<input style="width: 300px;" type="text" id="phone"
+									th:field="*{phone}" class="form-control" /> <label
+									style="color: red" th:if="${#fields.hasErrors('phone')}"
+									th:errors="*{phone}" class="help-inline"></label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<label class="col-xs-4 control-label">Паспорт: серия,
+								номер</label>
+							<div class="col-md-8 ">
+								<input style="width: 300px;" type="text" id="nomdoc"
+									th:field="*{nomdoc}" class="form-control" />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<label class="col-xs-4 control-label">Индекс</label>
+							<div class="col-md-8 ">
+								<input style="width: 300px;" type="text" id="index"
+									th:field="*{index}" class="form-control" />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<label class="col-xs-4 control-label">Регион</label>
+							<div class="col-md-8 ">
+								<input style="width: 300px;" type="text" id="region"
+									th:field="*{region}" class="form-control" />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<label class="col-xs-4 control-label">Город</label>
+							<div class="col-md-8 ">
+								<input style="width: 300px;" type="text" id="sity"
+									th:field="*{sity}" class="form-control" />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<label class="col-xs-4 control-label">Адрес</label>
+							<div class="col-md-8 ">
+								<input style="width: 300px;" type="text" id="street"
+									th:field="*{street}" class="form-control" />
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row" style="margin-bottom: 30px;margin-left: 20%">
+						<div class="col-md-8 ">
+							<input type="radio" id="deliver1" th:field="*{deliver}" value="1" /><label
+								for="deliver1">Самовывоз</label>
+							<p>Самовывоз со склада интернет-магазина в г. Санкт-Петербург</p>
+						</div>
+						<div class="col-md-4 ">
+							<span style="color: red">бесплатно</span>
+						</div>
+					</div>
+
+					<div class="row" style="margin-bottom: 30px;margin-left: 20%">
+						<div class="col-md-8 ">
+							<input type="radio" id="deliver2" th:field="*{deliver}" value="2" /><label
+								for="deliver2">Курьер</label>
+							<p>Доставка курьером осуществляется по Санкт-Петербургу в
+								пределах КАД.</p>
+						</div>
+						<div class="col-md-4 ">
+							<span style="color: red">350 руб.</span>
+						</div>
+					</div>
+
+					<div class="row" style="margin-bottom: 30px;margin-left: 20%">
+						<div class="col-md-8 ">
+							<input type="radio" id="deliver3" th:field="*{deliver}" value="3" /><label
+								for="deliver3">Срочный курьер </label>
+							<p>Срочная доставка курьером в течении 5 часов. Срочная
+								доставка осуществляется, если заказ был оформлен с 00 до 13
+								часов, сумма заказа была не менее 1100 руб. и вес заказа
+								составляет не более 5 кг. Доставка осуществляется в пределах
+								КАД.</p>
+						</div>
+						<div class="col-md-4 ">
+							<span style="color: red">2000 руб.</span>
+						</div>
+					</div>
+
+
+
+
+					<div class="row">
+						<div class="col-md-2 "></div>
+						<div class="col-md-8 ">
+							<div class="row">
+								<div class="col-md-5">
+									<p>Наименование</p>
+								</div>
+								<div class="col-md-2 ">
+									<p>Колл-во</p>
+								</div>
+								<div class="col-md-2 ">
+									<p>Цена</p>
+								</div>
+								<div class="col-md-3 ">
+									<p>Сумма</p>
+								</div>
+							</div>
+							<div class="row">
+								<hr size="2" align="center" style="border-color: black;">
+							</div>
+							<div class="row" th:each="good : *{goodsBasket}">
+								<div class="col-md-5 ">
+									<p th:text="${good.goods.name}">1</p>
+								</div>
+								<div class="col-md-2 ">
+									<p th:text="${good.quantity}">1</p>
+								</div>
+								<div class="col-md-2 ">
+									<p th:text="${good.price+' руб.'}">1</p>
+								</div>
+								<div class="col-md-2 ">
+									<p	th:text="${#numbers.formatDecimal(good.quantity*good.price,1,2,'COMMA')+' руб.'}">1</p>
+								</div>
+								<div class="col-md-1 ">
+									<button type="button" th:onclick="'javascript:deletegood('+${good.id}+');'"  class="btn-danger" >Удалить</button>
+								</div>
+							</div>
+							<div class="row">
+								<hr size="2" align="center" style="border-color: green;">
+							</div>
+							<div class="row">
+								<div class="col-md-7"></div>
+								<div class="col-md-2">
+									<b>Итого:</b>
+								</div>
+								<div class="col-md-3">
+									<b
+										th:text="${#numbers.formatDecimal(order.total_price,1,2,'COMMA')+' руб.'}">1</b>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-7"></div>
+								<div class="col-md-2">
+									<b>Доставка:</b>
+								</div>
+								<div class="col-md-3">
+									<b
+										th:text="${#numbers.formatDecimal(order.deliver_price,1,2,'COMMA')+' руб.'}">1</b>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-7"></div>
+								<div class="col-md-2">
+									<b style="text-decoration: underline;">Всего:</b>
+								</div>
+								<div class="col-md-3">
+									<b
+										th:text="${#numbers.formatDecimal(order.deliver_price+order.total_price,1,2,'COMMA')+' руб.'}"
+										style="text-decoration: underline;">1</b>
+								</div>
+
+								<p style="margin-top: 60px;">Комментарии</p>
+								<textarea name="news_content" rows="5" cols="90"
+									th:field="*{comment}">... </textarea>
+
+								
+							</div>
+							<div class="col-md-2 "></div>
+							
+							<script type="text/javascript">
+								function deletegood(id) {
+									//alert('delete '+id);
+									window.location.href=contextRoot+'order/deletegood/'+id;
+								}
+						
+							</script>
+							
+						</div>
+					</div>
+
+				</div>
+</div>
+
+
+<div class="col-xs-offset-3"></div>
+</div>
+
+</fieldset>
+
+</form>
+</body>
+</div>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- END of the content to be included in the execution result -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{Admin/Goods_templateadmin}">
+
+<div layout:fragment="content">
+<meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+    <button type="button"  th:onclick="'javascript:newgood('+${currentgroup}+');'" class="btn-primary center-block btn-block" style="margin-top: 30px;">Новый товар</button>
+    
+	<table class="table">
+		<tr th:each="good : ${goods}" >
+			<td style="width:35%;"><img style="width:80%;" th:src="@{'/resources'+${good.primPicture.url}}" th:onclick="'javascript:trclick('+${good.id}+');'"/></td> 
+			<td style="position: relative;">
+			
+			        <span th:text="${good.name}" 	 th:onclick="'javascript:trclick('+${good.id}+');'">название товара</span>
+
+			        <div style="position: absolute;bottom:10px; text-align:left ">
+			                <div>
+			        			<span style ="font-size: 16px; color:blue;" th:text="'Цена '+${good.price}+' руб.'"></span>
+			        		</div>
+			  		</div>
+			
+			</td>
+			<td style="position: relative;width:50%;">
+		
+			        <span th:text="${good.description}" th:onclick="'javascript:trclick('+${good.id}+');'">название товара</span>
+			        
+			        <div style="position: absolute;bottom:10px; text-align:left ">
+							<button th:onclick="'javascript:deletegood('+${good.group_id}+','+${good.id}+')'">Удалить товар</button>
+			  		</div>
+			
+			</td>
+			
+			
+<!-- 			<td style="width:50%;" th:text="${good.description}" th:onclick="'javascript:trclick('+${good.id}+');'" ></td> -->
+			<input type="hidden" th:value="${good.id}"  />
+			
+		</tr>
+	</table>
+	
+	<script type="text/javascript">
+		function trclick(id) {
+			//alert('tr clicked'+id);
+			window.location.href=contextRoot+'adminproduct/'+id;
+		}
+		
+		function newgood(id_group) {
+			var newname = document.getElementById("new_name");
+		        var newid_group = document.getElementById("newid_group");
+		         
+		 		// находим все элементы с данным именем (массив)
+				var red = document.getElementsByName("id_group");
+				// перебираем и ищем нажатый чек
+				for (var i = 0; i < red.length; i++)
+				 {
+					if  (red[i].checked == true) 
+					{
+						newname.value     = document.getElementById('grid'+red[i].value).innerHTML;
+						newid_group.value = red[i].value;
+						
+						//alert ('Выбор сделан! - '+red[i].value);
+		    	     }
+				  }
+			
+			
+			//alert('tr clicked'+newid_group.value);
+			window.location.href=contextRoot+'newgood/'+newid_group.value;
+		}
+		
+		function deletegood(id_group, id_good) {
+			//alert('tr clicked'+id_group);
+			window.location.href=contextRoot+'admingoods/deletegood?id_group='+id_group+'&id_good='+id_good;
+		}
+	</script>
+</div>
+
+
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html> <!-- SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd"> -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.springframework.org/security/tags">
+<head th:fragment="head">
+<title>Thymeleaf Demo Goods_template</title>
+
+<link th:href="@{/pages/css/bootstrap.css}" rel="stylesheet"
+	media="screen" />
+<link th:href="@{/pages/css/jumbotron-narrow.css}" rel="stylesheet"
+	media="screen" />
+<link th:href="@{/pages/css/my.css}" rel="stylesheet"
+	media="screen" />	
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf8"/> 
+<script th:src="@{/pages/js/jquery-1.10.2.min.js}"></script>
+
+    <!-- The following styles and scripts are served from spring-js-resources-{ver}.jar -->
+    <link rel="stylesheet" type="text/css"  th:href="@{/classresource/dijit/themes/tundra/tundra.css}" />
+     <script type="text/javascript"  th:src="@{/classresource/dojo/dojo.js}"></script>
+    <script type="text/javascript"  th:src="@{/classresource/spring/Spring.js}"></script>
+    <script type="text/javascript"  th:src="@{/classresource/spring/Spring-Dojo.js}"></script>
+    <script th:inline="javascript"> var contextRoot = /*[[@{/}]]*/ ''; </script>
+
+</head>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4 "></div>
+			<div class="col-md-6 "></div>
+			<div class="col-md-2 ">
+				<div  sec:authorize="isAuthenticated()">
+					<div class="row">
+						<div class="col-md-6 ">
+							<span style="font-size: 14pt; color: navy;">Здравствуйте,</span>
+							<a th:href="@{/userform/0}"  style="font-size: 14pt; color: blue" th:text="${currentuser.fam} +' '+ ${currentuser.Im} +' '+ ${currentuser.Ot}">ФИО</a>
+							<a th:href="@{/userform/0}"  style="font-size: 14pt; color: olive;" th:text="'('+${currentuser.username} +')'"></a>
+						</div>
+						<div class="col-md-6 ">
+							<img th:src="@{'/images/user.png'}" /> <a th:href="@{/logout}">Выход</a>
+						</div>
+					</div>
+				</div>
+
+				<div sec:authorize="!isAuthenticated()">
+			        <img th:src="@{'/images/user.png'}" /> <a th:href="@{/login}">Войти</a>
+		    	</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-2">
+				<ul class="cd-accordion-menu">
+					<li th:each="group1 : ${groups}">
+						<p th:text="${group1.name}">1</p>
+						<ul>
+							<li th:each="group2 : ${group1.subgroup}"><a href="#"
+								th:href="@{'/goods/'+${group2.id}}" th:text="${group2.name}"></a>
+							</li>
+						</ul>
+					</li>
+
+				</ul>
+			</div>
+			<div class="col-md-7">
+				<div sec:authorize="hasAuthority('ADMIN')"  >  
+						<a type="button" th:href="@{/admingoods/1}"  class="btn btn-primary " style="margin-top: 30px;">Администратор</a>
+				</div>
+						
+			  <body class="tundra">
+					<div layout:fragment="content">my content</div>
+			  </body>
+			</div>
+
+			<div class="col-md-3">
+			 
+			    <div id="ajaxDiv">
+			    
+			    </div>
+			
+			</div>
+
+		</div>
+	</div>
+
+
+	<div th:fragment="footer"></div>
+
+
+
+
+<script type="text/javascript">
+
+//alert("==="+contextRoot);
+
+         GetBasket();
+         
+		function plusQuantity(id, sign) {
+			//alert('tr clicked'+id);
+			var real_id = "quantity"+id;
+			var a = parseInt(document.getElementById(real_id).innerHTML);
+ 			if (sign==1)	document.getElementById(real_id).innerHTML=a+1;
+			
+ 			if (a>0) if (sign==0)	document.getElementById(real_id).innerHTML=a-1;
+			
+		}
+		
+		function addToBasket(id) {
+			var real_id = "quantity"+id;
+			var a = parseInt(document.getElementById(real_id).innerHTML);
+			var id = parseInt(id);
+			
+			var JSONObject= {
+					"quantity": a,
+					"id_good":id
+				};
+				
+			    $.ajax({
+			        type: 'PUT',
+			        url:  contextRoot+"put_in_basket",
+					contentType: "application/json; charset=utf-8",		
+					data: JSON.stringify(JSONObject),
+					dataType: 'json',
+			        async: true,
+			        success: function(result) {
+			        	document.getElementById(real_id).innerHTML=0;
+			        	GetBasket();
+			        },
+			        error: function(jqXHR, textStatus, errorThrown) {
+			            alert(jqXHR.status + " " + jqXHR.responseText);
+			        }
+			    });
+			
+		}
+		
+		
+		function GetBasket() {
+			
+				
+			    $.ajax({
+			        type: 'GET',
+			        url:  contextRoot+"get_basket",
+					contentType: "application/json; charset=utf-8",		
+					dataType: 'json',
+			        async: true,
+			        success: function(result) {
+		        	    $("#ajaxDiv").children().remove();
+		        		$("#ajaxDiv").append("<span style='font-size: 14pt; color: brown' >"+"Видов товара - "+result.total_quantity+"шт. на сумму "+ result.total_price +"руб.</span>" );
+		        		$("#ajaxDiv").append("<br/>");
+		        		if(result.goodsBasket.length!=0) $("#ajaxDiv").append("<button class='btn' onclick='I_buy_it()'>Оформить</button>");		        		
+		        		$("#ajaxDiv").append("<br/>");
+		        		$("#ajaxDiv").append("<br/>");
+		        		$("#ajaxDiv").append("<table id='tbasket'> </table>" );
+			        	$.each(result.goodsBasket, function(index, element){
+
+			        		$("#tbasket").append("<tr class='tabbasket'>" +
+			        				"<td><button class='btn' onclick='RemoveFromBasket("+element.goods.id+")'>X</button></td>"+
+			        				"<td>" +element.goods.name+"</td>"+
+			        				"<td> - "+element.quantity+" шт. * </td>"+
+			        				"<td>  "+element.goods.price+" руб.  </td>"+
+			        				"<td>  ="+element.goods.price*element.quantity+" руб.</td>"+
+			        				"</tr>");
+			            })
+			        },
+			        error: function(jqXHR, textStatus, errorThrown) {
+			            alert(jqXHR.status + " " + jqXHR.responseText);
+			        }
+			    });
+			
+		}
+		
+		
+		function RemoveFromBasket(id) {
+	        $.ajax({
+	            type: 'DELETE',
+	            url:  contextRoot+'removefrombasket/' + id,
+	            dataType: 'json',
+	            async: true,
+	            success: function(result) {
+	            	GetBasket();
+	            },
+	            error: function(jqXHR, textStatus, errorThrown) {
+	                alert(jqXHR.status + ' ' + jqXHR.responseText);
+	            }
+	        });
+	    }
+		
+		function I_buy_it() {
+			
+			window.location.href=contextRoot+'ordering';
+	    }
+
+		
+		
+	</script>
+
+
+</html>

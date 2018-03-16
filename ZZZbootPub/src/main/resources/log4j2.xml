@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Configuration status='warn' monitorInterval="60">
+    <Properties>
+        <Property name='basePath'>D:/Temp</Property>
+    </Properties>
+   
+    <Appenders>
+        <RollingFile name='fileBase' fileName='${basePath}/base.log'
+            filePattern="${basePath}/$${date:yyyy-MM}/base-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <pattern>%-10sn [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %-70C{4} %-40M(%-5L) - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size='10 MB' />
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+             
+        </RollingFile>
+        <RollingFile name='fileLogger' fileName='${basePath}/class.log'
+            filePattern="${basePath}/$${date:yyyy-MM}/class-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <pattern>%-10sn [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %-70C{4} %-40M(%-5L) - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy  />
+                <SizeBasedTriggeringPolicy size='25 MB' />
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+ 
+        </RollingFile>
+   
+        <Console name='console' target='SYSTEM_OUT'>
+            <PatternLayout>
+                <pattern>%-10sn [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %-70C{4} %-40M(%-5L) - %msg%n</pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name='myinfo' level='debug' additivity='true'>
+            <appender-ref ref='fileLogger' level='debug' />
+        </Logger>
+        <Root level='debug' additivity='false'>
+            <appender-ref ref='fileBase' />
+        </Root>
+    </Loggers>
+</Configuration>

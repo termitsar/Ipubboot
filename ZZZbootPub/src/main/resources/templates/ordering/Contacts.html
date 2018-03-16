@@ -1,0 +1,192 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{Order_template}">
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- This <head> section is only used for static prototyping purposes. At runtime, -->
+<!-- Tiles will only use the body fragment defined with tiles:fragment="content",  -->
+<!-- as specified at the corresponding views.xml file.                             -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<title>Контактная информация</title>
+
+
+
+
+<div layout:fragment="content">
+<meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+
+  <body  class="tundra">
+	<form id="order" action="#" th:object="${order}" th:action="${flowExecutionUrl}" method="post" class="form-horizontal">
+		
+		
+		<fieldset>
+		
+		<div  style = "margin-left: 0%">
+		
+		    <div class="row">
+		        <div class="form-group">
+					   	<label class="col-xs-4 control-label required-field ">Фамилия </label>
+						<div class="col-md-8 ">
+						  	<input style="width: 300px;" type="text" id="fam" th:field="*{fam}" class="form-control requiredfield" />
+						  	<label style="color:red" th:if="${#fields.hasErrors('fam')}" th:errors="*{fam}" class="help-inline"></label>
+						</div>
+				</div>		
+		    </div>
+		
+			<div class="row">
+				<div class="form-group">
+			    	<label class="col-xs-4 control-label required-field">Имя </label>
+					<div class="col-md-8 ">
+					  	<input style="width: 300px;"  type="text" id="im" th:field="*{im}"	class="form-control requiredfield" />
+					  	<label style="color:red" th:if="${#fields.hasErrors('im')}" th:errors="*{im}" class="help-inline"></label>
+					</div>
+				</div>
+		    </div>		
+
+			<div class="row">
+				<div class="form-group">
+			    	<label class="col-xs-4 control-label required-field">Отчество </label>
+					<div class="col-md-8 ">
+					  	<input style="width: 300px;"  type="text" id="ot" th:field="*{ot}"	class="form-control requiredfield" />
+					  	<label style="color:red" th:if="${#fields.hasErrors('ot')}" th:errors="*{ot}" class="help-inline"></label>
+					</div>
+				</div>
+		    </div>		
+		    
+ 			<div class="row">
+				<div class="form-group">
+			    	<label class="col-xs-4 control-label required-field">Электронная почта</label>
+					<div class="col-md-8 ">
+					  	<input style="width: 300px;" type="email" id="email" th:field="*{email}" class="form-control" />
+					  	<label style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="help-inline"></label>
+					</div>
+					<script type="text/javascript">
+//                             Spring.addDecoration(new Spring.ElementDecoration({
+//                                 elementId : "email",
+//                                 widgetType : "dijit.form.ValidationTextBox",
+//                                 widgetAttrs : { required : true, invalidMessage  : "Формат электронной почты неверен!", 
+//                                 regExp : "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b"  }}));
+                     </script>
+				</div>
+		    </div>			
+		    
+		    <div class="row">
+				<div class="form-group">
+			    	<label class="col-xs-4 control-label required-field">Телефон</label>
+					<div class="col-md-8 ">
+					  	<input style="width: 300px;" type="text" id="phone" th:field="*{phone}" class="form-control" />
+					  	<label style="color:red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="help-inline"></label>
+					</div>
+					<script type="text/javascript">
+//                             Spring.addDecoration(new Spring.ElementDecoration({
+//                                 elementId : "phone",
+//                                 widgetType : "dijit.form.ValidationTextBox",
+//                                 widgetAttrs : { required : true, invalidMessage  : "Может содержать только цифры, скобки и знак '+' !", 
+//                                 regExp : "[0-9()+]{6,15}"  }}));
+                     </script>
+				</div>
+		    </div>			
+		    
+		    <div class="row">
+				<div class="form-group">
+			    	<label class="col-xs-4 control-label">Паспорт: серия, номер</label>
+					<div class="col-md-8 ">
+					  	<input style="width: 300px;"  type="text" id="nomdoc" th:field="*{nomdoc}"	class="form-control" />
+					</div>
+				</div>
+		    </div>		
+		    
+		    <div class="row">
+				<div class="form-group">
+			    	<label class="col-xs-4 control-label">Индекс</label>
+					<div class="col-md-8 ">
+					  	<input style="width: 300px;"  type="text" id="index" th:field="*{index}"	class="form-control" />
+					</div>
+				</div>
+		    </div>		
+		    
+		    <div class="row">
+				<div class="form-group">
+			    	<label class="col-xs-4 control-label">Регион</label>
+					<div class="col-md-8 ">
+					  	<input style="width: 300px;"  type="text" id="region" th:field="*{region}"	class="form-control" />
+					</div>
+				</div>
+		    </div>		
+		    
+		    <div class="row">
+				<div class="form-group">
+			    	<label class="col-xs-4 control-label">Город</label>
+					<div class="col-md-8 ">
+					  	<input style="width: 300px;"  type="text" id="sity" th:field="*{sity}"	class="form-control" />
+					</div>
+				</div>
+		    </div>		
+		    
+		    <div class="row">
+				<div class="form-group">
+			    	<label class="col-xs-4 control-label">Адрес</label>
+					<div class="col-md-8 ">
+					  	<input style="width: 300px;"  type="text" id="street" th:field="*{street}"	class="form-control" />
+					</div>
+				</div>
+		    </div>
+		    
+			
+				
+			<!-- 				Назначает всем полям класса requiredfield проверку на заполняемость -->
+				<script type="text/javascript">
+//                             dojo.query(".requiredfield").forEach(function(element){
+//                                 Spring.addDecoration(new Spring.ElementDecoration({
+//                                     elementId: element.id,
+//                                     widgetType : "dijit.form.ValidationTextBox",
+//         							widgetAttrs : {
+//         								invalidMessage : "Поле обязательно для заполнения!",
+//         								required : true
+//         							}
+//                                 }));
+//                             });
+            	</script>		 			
+    						
+			
+             		
+			
+			<div class="col-xs-offset-3">
+				<input type="checkbox" id="agree" th:field="*{agree}" style="margin-top: 35px;" onclick="CheckOut();"/><label th:for="agree" >Согласен на обработку данных в соответствии с политикой конфиденциальности</label>
+				<p>
+					<button type="submit" id="cancel" name="_eventId_cancel">Назад в магазин</button> 
+					<button type="submit" id="proceed" name="_eventId_proceed" >Далее</button>
+
+<!-- 					<button type="submit" name="_eventId_confirm">Confirm</button>  -->
+				</p>
+					<script type="text/javascript">
+                        // <![CDATA[
+                        Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));
+                        Spring.addDecoration(new Spring.AjaxEventDecoration({elementId:'proceed',event:'onclick',formId:'order'}));
+                        // ]]>
+                    </script>
+                    <script type="text/javascript">
+                         CheckOut();
+             		     function CheckOut() {
+             		      var a = document.getElementById('agree');
+             		      var b = document.getElementById('proceed');
+             		      if (a.checked==false) b.disabled = true;
+             		      else  b.disabled = false;
+             		       }
+                    </script>
+			</div>
+		</div>
+	
+		</fieldset>	
+
+	</form>
+     </body>     
+</div>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- END of the content to be included in the execution result -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+</html>

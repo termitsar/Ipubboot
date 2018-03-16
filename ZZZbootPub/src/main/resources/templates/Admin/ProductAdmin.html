@@ -1,0 +1,131 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout=”http://www.ultraq.net.nz/thymeleaf/layout”
+	layout:decorate="~{Admin/Goods_templateadmin}">
+
+
+<div layout:fragment="content">
+	<link
+		href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css"
+		rel="stylesheet">
+	<script
+		src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+	
+
+	
+	<form id="product" action="#" th:action="@{/SaveProduct}" th:object="${product}"  enctype="multipart/form-data" method="post" class="form-horizontal">
+			<fieldset>  
+		<input type="hidden"  th:value= "${saveandback}" th:name="saveandback" id="saveandback"/>
+			
+			<div class="container-fluid">
+				<div class="row">
+				    <input type="hidden" th:field="*{id}"/>
+				    <input type="hidden" th:field="*{group_id}"/>
+					<div class="col-md-4">
+						<!-- Fotorama -->
+						<div id = "fotorama"  name ="fotorama"  class="fotorama" data-nav="thumbs" data-width="400" data-ratio="700/467" data-max-width="100%">
+							 <img th:each="pic : ${product.pictures}"	th:src="@{'/resources'+${pic.url}}" />
+						</div>
+						
+						<button type="button" onclick="SaveandUp();"  class="btn-success center-block btn-block" style="margin-top: 30px;">Сохранить и выйти</button>
+						<button type="submit" class="btn-primary center-block btn-block" style="margin-top: 30px;">Сохранить</button>
+						
+						
+						<strong class="center-block" style="margin-top: 20px;">Добавить фото товара</strong>
+						<input type="file" accept=".png, .jpg, .jpeg"  name="files" class="form-control" multiple="multiple"/>
+						
+							<div class="row" style="margin-top: 20px; margin-bottom: 10px;">
+								<div class="col-md-6">
+									<strong class="center-block">Фото</strong>
+								</div>
+								<div class="col-md-3">
+									<strong class="center-block">Удалить</strong>
+								</div>
+								<div class="col-md-3">
+									<strong class="center-block">Главная</strong>
+								</div>
+							</div>
+														
+						<th:block th:each="pic,row : *{pictures}">
+							<input type="hidden" th:field="*{pictures[__${row.index}__].id}" />
+							<input type="hidden" th:field="*{pictures[__${row.index}__].url}" />
+							
+							<div class="row">
+								<div class="col-md-6">
+									<img th:src="@{'/resources'+${pic.url}}" style="width: 150px;" />
+								</div>
+								<div class="col-md-3">
+									<input type="checkbox" th:checked="${pic.forDelete}" th:field="*{pictures[__${row.index}__].forDelete}" />
+								</div>
+								<div class="col-md-3">
+									<input type="radio" th:field="*{id_primPicture}" th:value="${pic.id}" />
+								</div>
+							</div>
+							<br />
+						</th:block>
+					</div>
+					
+<!--это для вывода всех ошибок	<div class="error" th:if="${#fields.hasErrors('*')}"> -->
+<!--                 			<span th:each="err : ${#fields.errors('*')}"> -->
+<!--                   			<span th:text="${err}">Input is incorrect</span> -->
+<!--                   				<br /> -->
+<!--                				 </span> -->
+<!--                    </div> -->
+					
+					<div class="col-md-6" style="backgroung-color: ivory">
+					<h3>
+						<span>Наименование товара</span>
+						<input style="width: 300px;" type="text" id="name" th:field="*{name}" class="form-control " />
+						<label style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="help-inline"></label>
+					</h3>
+					
+					  <div>
+							<h3>Цена</h3>
+							<div class="input-group">
+								<span class="input-group-addon">Руб.</span>
+								<input type="number" value="1000" min="0" step="2" th:field="*{price}" class="form-control currency"	id="price" />
+							</div>
+					 </div>
+					  
+						<h3 style="margin-bottom: 10px" >Описание:</h3>
+						<div style="background-color: ivory">
+							<textarea name = "news_content" rows = "5" cols = "90" th:field = "*{description}" >... </textarea>
+						</div>
+					</div>
+					
+					<div class="col-md-2" style="backgroung-color: ivory"></div>
+				</div>
+			</div>
+			
+			</fieldset>
+	</form>
+	
+
+	
+	<script type="text/javascript">
+ 			
+ 			 function SaveandUp() {
+ 						document.getElementById("saveandback").value="1";
+ 						document.getElementById("product").submit(); 
+			 }
+    </script>
+	
+
+</div>
+					
+
+				
+
+</html>
+
+
+
+
+
+
+
+
+
+

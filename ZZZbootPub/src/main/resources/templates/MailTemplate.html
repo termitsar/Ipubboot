@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Sending Email with Thymeleaf HTML Template Example</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+
+
+
+
+
+</head>
+<body style="margin: 0; padding: 0;">
+
+			<div style="text-align: center;">
+					<p th:text="'Уважаемый '+${order.Im} +' '+ ${order.Ot}">1</p>
+					<p th:text="'Ваш номер заказа '+${order.id}">1</p>
+					<p>сменил статус на <b style="color: green" th:text="${order.state_order.name}"></b></p>
+			</div>
+
+
+	<table align="center" border="3" cellpadding="0" cellspacing="0"
+		width="600" style="border-collapse: collapse;">
+		<tr>
+			<th>Наименование</th>
+			<th>Количество</th>
+			<th>Цена</th>
+			<th>Сумма</th>
+		</tr>
+		<tr th:each="good : ${goodsBasket}">
+			<td bgcolor="#eaeaea" style="text-align: center">
+				<p th:text="${good.goods.name}">1</p>
+			</td>
+			<td bgcolor="#eaeaea" style="text-align: center">
+				<p th:text="${good.quantity}">1</p>
+			</td>
+			<td bgcolor="#eaeaea" style="text-align: center">
+				<p th:text="${good.price+' руб.'}">1</p>
+			</td>
+			<td bgcolor="#eaeaea" style="text-align: center">
+				<p
+					th:text="${#numbers.formatDecimal(good.quantity*good.price,1,2,'COMMA')+' руб.'}">1</p>
+			</td>
+		</tr>
+		<tr >
+		     <td colspan=4>
+		     		<hr size="2" align="center" style="border-color: green;">
+		     </td>
+		</tr>
+		<tr >
+		     <td colspan=4 style="text-align:right;">
+		     		<b  th:text="'Итого:  ' +${#numbers.formatDecimal(order.total_price,1,2,'COMMA')+' руб.'}">1</b>
+		     </td>
+		</tr>
+		<tr >
+		     <td colspan=4 style="text-align:right;">
+		     		<b th:text="'Доставка:   '+${#numbers.formatDecimal(order.deliver_price,1,2,'COMMA')+' руб.'}">1</b>
+		     </td>
+		</tr>
+		<tr >
+		     <td colspan=4 style="text-align:right;">
+		     		<b	th:text="'Всего:   '+${#numbers.formatDecimal(order.deliver_price+order.total_price,1,2,'COMMA')+' руб.'}"
+				style="text-decoration: underline;">1</b>
+		     </td>
+		</tr>
+	</table>
+
+
+	
+</body>
+</html>

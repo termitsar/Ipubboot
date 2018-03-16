@@ -1,0 +1,58 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{Order_template}">
+
+<head>
+    <title>Оплата</title>
+</head>
+
+
+<div layout:fragment="content">
+
+<form id="order" action="#" th:object="${order}" th:action="${flowExecutionUrl}" method="post">
+                      <meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+<div class="col-md-offset-3 form-horizontal">      
+           <label style="color:red" th:if="${#fields.hasErrors('payment')}" th:errors="*{payment}" class="help-inline"></label>     
+					<div class="row" style="margin-bottom: 50px;">
+								<div class="col-md-8 ">
+								  	 <input type="radio" id="payment1" th:field="*{payment}" value="1"  /><label for="payment1">Оплата по квитанции </label>
+								  	 <p>Оплата наличными по квитанции для физических лиц (РФ)</p>
+								</div>
+				    </div>
+						
+					<div class="row" style="margin-bottom: 50px;">
+								<div class="col-md-8 ">
+								  	 <input type="radio" id="payment2" th:field="*{payment}" value="2" /><label for="payment2">Оплата по счету</label>
+								  	 <p>Оплата безналичным расчетом для юридических лиц (РФ)</p>
+								</div>
+				    </div>
+				    
+				    <div class="row" style="margin-bottom: 50px;">
+								<div class="col-md-8 ">
+								  	 <input type="radio" id="payment3" th:field="*{payment}" value="3" /><label for="payment3">Оплата банковской картой </label>
+								  	 <p>Оплата картами через банк Авангард.</p>
+								</div>
+				    </div>
+		    
+
+	                <div>
+	                    <p>
+	                    <button type="submit" id="cancel" name="_eventId_cancel">В магазин</button> 
+	                    <button type="submit" id="revise" name="_eventId_revise" >Назад</button> 
+						<button type="submit" id="proceed" name="_eventId_proceed">Далее</button>
+	 
+	                    </p>
+	                    
+	                </div>
+             </div>
+            
+</form>
+
+</div>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- END of the content to be included in the execution result -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+</html>

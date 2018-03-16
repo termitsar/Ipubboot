@@ -1,0 +1,13 @@
+label.required-field::after { 
+    content: "*";
+    color: red;
+}
+
+label { 
+font-size: 15px;
+}
+
+tr { 
+margin-bottom: 50px;
+}
+

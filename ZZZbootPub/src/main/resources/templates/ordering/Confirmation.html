@@ -1,0 +1,122 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{Order_template}">
+
+<head>
+
+<head>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- This <head> section is only used for static prototyping purposes. At runtime, -->
+    <!-- Tiles will only use the body fragment defined with tiles:fragment="content",  --> 
+    <!-- as specified at the corresponding views.xml file.                             -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <title>Подтверждение</title>
+
+
+    
+</head>
+
+
+<div layout:fragment="content">
+
+<form id="order" action="#" th:object="${order}" th:action="${flowExecutionUrl}" method="post">
+<meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+
+			<div class="row">
+				<div class="col-md-3 "></div>
+				<div class="col-md-7 ">
+					<div class="row">
+						<b th:text="'Получатель: '+*{fam}+' '+*{im}+' '+*{ot}">1</b>
+					</div>
+					<div class="row" style="margin-bottom: 50px;">
+						<b th:text="'Адрес: '+*{index}+', '+*{region}+', '+*{sity}+', '+*{street}">1</b>
+					</div>
+					<div class="row">
+						<div class="col-md-5">
+							<p>Наименование</p>
+						</div>
+						<div class="col-md-2 ">
+							<p>Колл-во</p>
+						</div>
+						<div class="col-md-2 ">
+							<p>Цена</p>
+						</div>
+						<div class="col-md-3 ">
+							<p>Сумма</p>
+						</div>
+					</div>
+					<div class="row">
+						<hr size="2" align="center" style="border-color:black; ">
+					</div>
+					<div class="row" th:each="good : *{goodsBasket}">
+						<div class="col-md-5 ">
+							<p th:text="${good.goods.name}">1</p>
+						</div>
+						<div class="col-md-2 ">
+							<p th:text="${good.quantity}">1</p>
+						</div>
+						<div class="col-md-2 ">
+							<p th:text="${good.goods.price+' руб.'}">1</p>
+						</div>
+						<div class="col-md-3 ">
+							<p	th:text="${#numbers.formatDecimal(good.quantity*good.goods.price,1,2,'COMMA')+' руб.'}">1</p>
+						</div>
+					</div>
+					<div class="row">
+						<hr size="2" align="center" style="border-color:green; ">
+					</div>
+					<div class="row">
+					    <div class="col-md-7"></div>
+						<div class="col-md-2">
+						     <b >Итого:</b>
+						</div>
+						<div class="col-md-3">
+						     <b	th:text="${#numbers.formatDecimal(order.total_price,1,2,'COMMA')+' руб.'}">1</b>
+						</div>
+					</div>
+					<div class="row">
+					    <div class="col-md-7"></div>
+						<div class="col-md-2">
+						     <b >Доставка:</b>
+						</div>
+						<div class="col-md-3">
+						     <b	th:text="${#numbers.formatDecimal(order.deliver_price,1,2,'COMMA')+' руб.'}">1</b>
+						</div>
+					</div>
+					<div class="row">
+					    <div class="col-md-7"></div>
+						<div class="col-md-2">
+						     <b style="text-decoration:underline;">Всего:</b>
+						</div>
+						<div class="col-md-3">
+						     <b	th:text="${#numbers.formatDecimal(order.deliver_price+order.total_price,1,2,'COMMA')+' руб.'}" style="text-decoration:underline;">1</b>
+						</div>
+						
+						<p style="margin-top: 60px;">Комментарии</p>
+						<textarea name = "news_content" rows = "5" cols = "90" th:field = "*{comment}" >... </textarea>
+						
+						<div class="row" style="margin-top: 10px;">
+                    		<p style="text-align:center; ">
+                        			<button type="submit" id="revise" name="_eventId_revise" >Назад</button> 
+                        			<button type="submit" id="proceed" name="_eventId_proceed">Оформить</button>
+                   			</p>
+                		</div>
+					</div>
+					<div class="col-md-2 "></div>
+				</div>
+			</div>
+
+        	</div>  
+        </div>    
+</form>
+
+</div>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- END of the content to be included in the execution result -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+</html>

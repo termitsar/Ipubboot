@@ -1,0 +1,61 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{Admin/Templateadmin}"
+	>
+
+<div layout:fragment="content">
+<meta http-equiv="Content-Type" content="text/html; charset=utf8"\>
+   
+    <h2 style="margin-bottom: 50px; text-align: center">Список заказов</h2>
+   
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Дата заказа</th>
+				<th>Статус</th>
+				<th>ФИО</th>
+				<th>Город</th>
+				<th>Количество товара</th>
+				<th>Сумма заказа</th>
+				<th>Действия</th>
+			</tr>
+		</thead>
+
+		<tr th:each="order : ${listorders}" >
+
+			<td ><span th:text="${order.id}"></span></td>
+			<td ><span th:text="${order.cr_date}"></span></td>
+			<td ><span th:text="${order.state_order.name}"></span></td>
+			<td ><span th:text="${order.fam}+' '+${order.im}+' '+${order.ot}"></span></td>
+			<td ><span th:text="${order.sity}"></span></td>
+			<td ><span th:text="${order.total_quantity}"></span></td>
+			<td ><span th:text="${order.total_price}"></span></td>
+			
+			<td >
+				<button type="button" th:onclick="'javascript:openorder('+${order.id}+');'" class="btn-success" >Открыть</button>
+				<button type="button" th:onclick="'javascript:deleteorder('+${order.id}+');'"  class="btn-danger" >Удалить</button>
+			</td>
+		
+		</tr>
+	</table>
+	
+	
+	<script type="text/javascript">
+		function openorder(id) {
+			//alert('open '+id);
+			window.location.href=contextRoot+'order/getOrder/'+id;
+		}
+		function deleteorder(id) {
+			//alert('delete '+id);
+			window.location.href=contextRoot+'order/deleteOrder/'+id;
+		}
+
+	</script>
+	
+</div>
+
+
+</html>
